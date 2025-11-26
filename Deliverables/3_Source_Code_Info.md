@@ -51,3 +51,17 @@ This folder contains the complete source code for the Pocket LLM Portal.
     npm run dev
     ```
     (Runs on port 5173, proxies API calls to 3001)
+
+## Enabling Real AI (Hybrid Mode)
+The app defaults to a **Mock Inference Engine** for speed and testing. To enable the **Real LLM**:
+
+1.  **Download the Model:**
+    Run the included script to download TinyLlama (approx. 600MB):
+    ```bash
+    node download_model.js
+    ```
+    This will save the GGUF model to `server/models/`.
+
+2.  **Restart Server:**
+    Restart the backend (`npm start` or Docker). The app will automatically detect the model file and switch to **Real Inference Mode**.
+

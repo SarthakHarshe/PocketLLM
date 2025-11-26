@@ -10,6 +10,9 @@ RUN npm run build
 FROM node:18-alpine
 WORKDIR /app
 
+# Install build dependencies for node-llama-cpp (python, make, g++)
+RUN apk add --no-cache python3 make g++
+
 # Install backend dependencies
 COPY server/package*.json ./server/
 WORKDIR /app/server
@@ -18,11 +21,10 @@ RUN npm install --production
 # Copy backend code
 COPY server/ ./
 
-# Copy built frontend to server public directory (or serve separately, but for simplicity we'll serve static)
-# For this setup, we'll assume the server serves the static files or we run them separately.
-# Given the constraints, a single container running both is efficient.
-# Let's modify the server to serve the frontend build.
+# Create models directory
+RUN mkdir -p models
 
+# Copy built frontend to server public directory
 COPY --from=frontend-build /app/client/dist ./public
 
 # Expose port
