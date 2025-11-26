@@ -150,3 +150,98 @@ ChatController ..> InferenceService : uses
 ChatController ..> SessionRepository : uses
 @enduml
 ```
+
+### Deployment Diagram
+This diagram illustrates how the application is deployed using Docker containers on the host machine.
+
+```plantuml
+@startuml
+node "Host Machine (User's Device)" {
+    artifact "Docker Image: pocket-llm" {
+        component "Node.js Runtime" {
+            component "Express Server"
+            component "Better-SQLite3"
+        }
+        folder "Static Assets" {
+            file "React Build (dist)"
+        }
+    }
+    
+    database "SQLite File (Volume)" as DBFile
+}
+
+"Express Server" --> "React Build (dist)" : Serves
+"Better-SQLite3" --> DBFile : Reads/Writes
+@enduml
+```
+
+### State Diagram: Chat Session
+This diagram models the states of the chat interface during a user interaction.
+
+```plantuml
+@startuml
+[*] --> Idle
+
+state Idle {
+    [*] --> WaitingForInput
+}
+
+state "Processing Request" as Processing {
+    state "Optimistic Update" as Optimistic
+    state "Sending Request" as Sending
+    
+    [*] --> Optimistic
+    Optimistic --> Sending
+}
+
+state "Streaming Response" as Streaming {
+    state "Receiving Tokens" as Receiving
+    state "Updating UI" as Updating
+    
+    [*] --> Receiving
+    Receiving --> Updating : New Token
+    Updating --> Receiving
+}
+
+Idle --> Processing : User Sends Message
+Processing --> Streaming : Connection Established
+Streaming --> Idle : Stream Complete
+Streaming --> Error : Connection Failed
+Processing --> Error : API Error
+Error --> Idle : User Dismisses
+@enduml
+```
+
+### Activity Diagram: Inference Flow
+This diagram details the logic flow within the backend during an inference request.
+
+```plantuml
+@startuml
+start
+:Receive POST /api/chat;
+:Validate Request Body;
+if (Prompt is valid?) then (yes)
+    :Get or Create Session;
+    :Save User Message to DB;
+    :Initialize SSE Connection;
+    :Send "Session ID" Event;
+    
+    partition "Inference Service" {
+        :Load Model Context;
+        :Tokenize Input;
+        while (Has Next Token?) is (yes)
+            :Generate Token;
+            :Send Token via SSE;
+            :Append to Full Response;
+        endwhile (no)
+    }
+    
+    :Save Assistant Message to DB;
+    :Send "Done" Event;
+    :Close Connection;
+else (no)
+    :Return 400 Bad Request;
+endif
+stop
+@enduml
+```
