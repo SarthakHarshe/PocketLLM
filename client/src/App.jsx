@@ -20,7 +20,7 @@ function AppContent() {
   };
 
   return (
-    <div className="flex h-screen bg-slate-950 font-sans antialiased selection:bg-sky-500/30 selection:text-sky-200">
+    <div className="flex h-screen bg-zinc-950 font-sans antialiased selection:bg-teal-500/30 selection:text-teal-200">
       <Sidebar
         currentSessionId={currentSessionId}
         onLoadSession={loadSession}

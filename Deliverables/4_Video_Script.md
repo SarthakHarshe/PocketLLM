@@ -3,28 +3,26 @@
 **Duration:** ~5 Minutes
 
 ## 1. Introduction (0:00 - 0:30)
-*   **Visual:** Title Slide "Pocket LLM Portal" -> Cut to App Landing Page.
-*   **Script:** "Hi, this is [Team Name]. Today we are presenting Pocket LLM, our lightweight, offline-first AI portal designed to run on constrained hardware."
-*   **Key Point:** Emphasize the "Premium Simple" design and the goal of bringing LLMs to the edge.
+*   **Visual:** Title Slide "Pocket LLM Portal" -> Cut to App Landing Page (Gray + Pastel Theme).
+*   **Script:** "Hi, this is [Team Name]. Today we are presenting Pocket LLM, our lightweight, offline-first AI portal designed to run on constrained hardware. We've focused on a 'Premium Simple' aesthetic using a modern gray and pastel palette."
 
-## 2. Architecture Overview (0:30 - 1:30)
+## 2. Architecture Overview (0:30 - 1:00)
 *   **Visual:** Show the **Component Diagram** (from Deliverable 1).
-*   **Script:** "Our architecture follows a clean client-server model. On the frontend, we have a React SPA that handles all UI state. On the backend, a modular Node.js application manages sessions and inference."
-*   **Key Point:** Highlight the **Streaming Architecture** (SSE) and **Local Persistence** (SQLite) as key architectural decisions for performance.
+*   **Script:** "Our architecture follows a clean client-server model. On the frontend, we have a React SPA that handles all UI state. On the backend, a modular Node.js application manages sessions and inference. We chose this to ensure modularity and separation of concerns."
 
-## 3. Demo: Core Chat & Streaming (1:30 - 3:00)
+## 3. Demo: Core Features (1:00 - 3:00)
 *   **Visual:** Split screen or full screen of the App.
 *   **Action:** Type "Tell me a story about a robot."
-*   **Script:** "Let's see it in action. As I type a prompt, notice the immediate feedback. The response streams in token-by-token. This is powered by our Server-Sent Events implementation, ensuring the user never stares at a loading spinner."
-*   **Key Point:** Show the **CPU Mode** badge and explain how the system is optimized for limited resources (4 vCPU).
+*   **Script:** "Let's see it in action. As I type a prompt, notice the immediate feedback. The response streams in token-by-token via Server-Sent Events. We also have a persistent sidebar that saves your history locally using SQLite."
+*   **Key Point:** Highlight the **CPU Mode** badge and the smooth animations.
 
-## 4. Demo: History & Persistence (3:00 - 4:00)
-*   **Visual:** Click "New Chat", then click back to the previous session in the Sidebar.
-*   **Action:** Show the history loading instantly.
-*   **Script:** "Pocket LLM remembers your conversations. Our SQLite-backed Session Repository ensures that your history is safe and loads instantly, even if you refresh the page."
-*   **Key Point:** Demonstrate the **Sidebar** navigation and the seamless state restoration.
+## 4. High Points & Low Points (3:00 - 4:00)
+*   **Visual:** Team Slide or Architecture Diagram.
+*   **Script:**
+    *   **High Points:** "Our biggest success was the seamless integration of the streaming pipeline. Getting the token-by-token update to feel 'native' and responsive on the React frontend was a major win. We also love the modularity of the backend; swapping the mock engine for a real GGUF loader is trivial."
+    *   **Low Points:** "One low point was the initial struggle with PDF parsing for the requirements gathering phase. We spent significant time debugging binary formats before settling on a reliable library. We also had to reject a Django proposal which, while good, didn't fit the Node.js constraint."
 
-## 5. Challenges & Conclusion (4:00 - 5:00)
-*   **Visual:** Return to Architecture Diagram or Team Slide.
-*   **Script:** "One of our major challenges was optimizing the streaming pipeline to work smoothly within the 16GB RAM limit. We solved this by implementing a custom Inference Service that manages memory efficiently."
+## 5. Major Challenges (4:00 - 5:00)
+*   **Visual:** Code Snippet of `InferenceService` or `useChatStream`.
+*   **Script:** "Our major challenge was optimizing for the 'Pocket' constraints. Ensuring the app runs smoothly on 4 vCPUs meant we had to be very careful with our render loops in React and our memory management in Node.js. We solved this by implementing a custom `useChatStream` hook that efficiently manages the SSE connection without unnecessary re-renders."
 *   **Conclusion:** "Pocket LLM demonstrates that powerful AI tools can be beautiful, simple, and efficient. Thank you."
