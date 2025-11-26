@@ -27,7 +27,10 @@ class InferenceService {
                     modelPath: modelPath
                 });
 
-                this.context = await this.model.createContext();
+                // Limit threads to reduce CPU usage (User Request)
+                this.context = await this.model.createContext({
+                    threads: 2
+                });
                 this.session = new LlamaChatSession({
                     contextSequence: this.context.getSequence()
                 });

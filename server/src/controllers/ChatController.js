@@ -60,6 +60,17 @@ class ChatController {
         const messages = SessionRepository.getMessages(id);
         res.json(messages);
     }
+
+    async deleteSession(req, res) {
+        const { id } = req.params;
+        try {
+            SessionRepository.deleteSession(id);
+            res.json({ success: true });
+        } catch (error) {
+            console.error('Failed to delete session:', error);
+            res.status(500).json({ error: 'Failed to delete session' });
+        }
+    }
 }
 
 module.exports = new ChatController();

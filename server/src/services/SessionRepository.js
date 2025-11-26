@@ -38,7 +38,8 @@ class SessionRepository {
     }
 
     getAllSessions() {
-        return this.db.prepare('SELECT * FROM sessions ORDER BY updated_at DESC').all();
+        const stmt = this.db.prepare('SELECT * FROM sessions ORDER BY created_at DESC');
+        return stmt.all();
     }
 
     addMessage(sessionId, role, content) {
