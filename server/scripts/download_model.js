@@ -4,7 +4,18 @@ const https = require('https');
 
 // TinyLlama 1.1B Chat v1.0 Q4_K_M (Small, fast, decent quality)
 const MODEL_URL = "https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF/resolve/main/tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf";
-const MODEL_PATH = path.join(__dirname, 'server', 'models', 'tinyllama-1.1b-chat-v1.0.q4_k_m.gguf');
+// Adjusted path for running inside server/scripts/
+const MODELS_DIR = path.join(__dirname, '..', 'models');
+const MODEL_PATH = path.join(MODELS_DIR, 'tinyllama-1.1b-chat-v1.0.q4_k_m.gguf');
+
+if (!fs.existsSync(MODELS_DIR)) {
+    fs.mkdirSync(MODELS_DIR, { recursive: true });
+}
+
+if (fs.existsSync(MODEL_PATH)) {
+    console.log('Model already exists. Skipping download.');
+    process.exit(0);
+}
 
 console.log(`Downloading model from ${MODEL_URL}...`);
 console.log(`Target path: ${MODEL_PATH}`);

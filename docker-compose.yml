@@ -10,6 +10,7 @@ services:
     volumes:
       - ./pocket_llm.db:/app/pocket_llm.db
       - ./server/models:/app/server/models
+    restart: always
     deploy:
       resources:
         limits:
