@@ -15,7 +15,20 @@ We have selected a **Layered Architecture** with a **Client-Server** separation.
     This separation ensures maintainability and allows individual components (like the Inference Engine) to be swapped or upgraded without affecting the rest of the system.
 4.  **Resource Constraints:** The system is designed to run on limited resources (4 vCPU, 16GB RAM). By offloading UI rendering to the client and using a lightweight, in-process SQLite database, we maximize the resources available for the CPU-bound inference task.
 
-### Did we update the architecture?
+### 2. Scope of Implementation (Meaningful Subset)
+We have defined the following "Meaningful Subset" of capabilities for this implementation, focusing on the core value proposition of a "Pocket" LLM:
+
+*   **Core Chat Interface (MVP):** A fully functional, responsive chat UI that mimics premium tools (like ChatGPT) but is optimized for local execution.
+*   **Streaming Inference:** Real-time token generation is critical for UX. We implemented a full Server-Sent Events (SSE) pipeline to demonstrate this.
+*   **Local Persistence (Offline-First):** Instead of cloud sync, we implemented robust local storage (SQLite) for sessions and messages. This proves the "Offline" capability.
+*   **Session Management:** The ability to manage multiple conversation threads is essential for a usable tool, so we included full Create/Read/List support.
+
+**Excluded Capabilities:**
+*   **User Authentication:** Not needed for a local, single-user "Pocket" app.
+*   **Multi-modal Support:** Out of scope for the initial "Text-to-Text" focus.
+*   **Advanced Admin Dashboard:** We focused on the user-facing chat experience as the primary deliverable.
+
+### 3. Did we update the architecture?
 **Yes, slightly.**
 *   **Original Plan:** We considered a strictly "MVC" pattern where the backend might render views (e.g., EJS/Pug).
 *   **Updated Decision:** We moved to a **REST API + SPA** model.
