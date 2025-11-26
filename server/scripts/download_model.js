@@ -2,11 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const https = require('https');
 
-// TinyLlama 1.1B Chat v1.0 Q4_K_M (Small, fast, decent quality)
-const MODEL_URL = "https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF/resolve/main/tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf";
+// Llama 3.2 1B Instruct Q4_K_M (Newer, smarter, same size)
+const MODEL_URL = "https://huggingface.co/bartowski/Llama-3.2-1B-Instruct-GGUF/resolve/main/Llama-3.2-1B-Instruct-Q4_K_M.gguf";
 // Adjusted path for running inside server/scripts/
 const MODELS_DIR = path.join(__dirname, '..', 'models');
-const MODEL_PATH = path.join(MODELS_DIR, 'tinyllama-1.1b-chat-v1.0.q4_k_m.gguf');
+const MODEL_PATH = path.join(MODELS_DIR, 'Llama-3.2-1B-Instruct-Q4_K_M.gguf');
 
 if (!fs.existsSync(MODELS_DIR)) {
     fs.mkdirSync(MODELS_DIR, { recursive: true });

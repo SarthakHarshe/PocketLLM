@@ -16,7 +16,7 @@ class InferenceService {
     async initialize() {
         try {
             // Check if model exists
-            const modelPath = path.join(__dirname, '../../models/tinyllama-1.1b-chat-v1.0.q4_k_m.gguf');
+            const modelPath = path.join(__dirname, '../../models/Llama-3.2-1B-Instruct-Q4_K_M.gguf');
 
             if (fs.existsSync(modelPath)) {
                 console.log('Found local GGUF model. Initializing node-llama-cpp...');
@@ -33,7 +33,7 @@ class InferenceService {
                 });
 
                 this.isRealModel = true;
-                this.modelName = "TinyLlama-1.1B (Real)";
+                this.modelName = "Llama-3.2-1B (Real)";
                 console.log('Real LLM initialized successfully!');
             } else {
                 console.log('No GGUF model found. Using Mock Inference Engine.');
@@ -60,8 +60,8 @@ class InferenceService {
 
     async streamRealResponse(prompt, onToken) {
         try {
-            // Simple prompt template for TinyLlama
-            const formattedPrompt = `<|system|>\nYou are a helpful AI assistant.\n<|user|>\n${prompt}\n<|assistant|>\n`;
+            // Llama 3 Prompt Template
+            const formattedPrompt = `<|start_header_id|>system<|end_header_id|>\n\nYou are a helpful AI assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n${prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n`;
 
             await this.session.prompt(formattedPrompt, {
                 onTextChunk: (chunk) => {
