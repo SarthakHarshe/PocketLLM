@@ -28,8 +28,11 @@ class InferenceService {
                 });
 
                 // Limit threads to reduce CPU usage (User Request)
+                const threads = parseInt(process.env.LLM_THREADS) || 2;
+                console.log(`Initializing model with ${threads} threads`);
+
                 this.context = await this.model.createContext({
-                    threads: 2
+                    threads: threads
                 });
                 this.session = new LlamaChatSession({
                     contextSequence: this.context.getSequence()
