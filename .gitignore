@@ -5,3 +5,4 @@ dist
 pocket_llm.db
 extracted_texts
 *.pdf
+server/models/*.gguf

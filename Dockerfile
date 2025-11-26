@@ -7,11 +7,11 @@ COPY client/ ./
 RUN npm run build
 
 # Production stage
-FROM node:18-alpine
+FROM --platform=linux/amd64 node:18
 WORKDIR /app
 
-# Install build dependencies for node-llama-cpp (python, make, g++)
-RUN apk add --no-cache python3 make g++
+# Install build dependencies for node-llama-cpp
+RUN apt-get update && apt-get install -y python3 make g++ git cmake
 
 # Install backend dependencies
 COPY server/package*.json ./server/
