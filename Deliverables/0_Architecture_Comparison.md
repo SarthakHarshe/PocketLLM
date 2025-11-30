@@ -51,6 +51,17 @@ Based on `Assignment3 CSC-578.pdf` and `pocket_llm.pdf`:
     *   Less detailed on the specific backend component structure (Controllers/Services) compared to Sarthak's.
     *   Focuses heavily on requirements rather than architectural component mapping.
 
+### 6. Sohan Walawalkar
+*   **Frontend:** React.
+*   **Backend:** Node.js (NestJS) with  controller/service/repository layering.CPU-only quantized model via IModelRunner and LlamaCppRunner.SQLite for sessions; two-level caching (LRU + disk-backed RocksDB/SQLite).
+*   **Pros:**
+    *   Complete UML mapping with explicit controllers, services, repositories, and interfaces.
+    *   Offline-ready architecture using SW + IndexedDB.
+    *   Well-structured and implementation-ready
+*   **Cons:**
+    *   Slightly more setup overhead due to DI + layered NestJS structure.
+    
+    
 ## Selected Architecture: Sarthak Harshe
 
 **Reasoning:**
