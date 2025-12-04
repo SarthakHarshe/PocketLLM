@@ -12,7 +12,7 @@ This document outlines the design decisions and departures from the initial arch
 
 ## 3. Frontend Styling & UX
 *   **Decision:** Adopt a **Slate/Sky** color theme with **TailwindCSS v4**.
-*   **Rationale:** The initial requirement was generic, but we refined the UX to be "Premium, Simple, and Modern" (avoiding purple). We chose TailwindCSS for its utility-first approach, enabling rapid UI iteration. We specifically used the latest v4 to leverage modern CSS features and reduced build configuration overhead.
+*   **Rationale:** The initial requirement was generic, but we refined the UX to be simple and clean. We chose TailwindCSS for its utility-first approach, enabling rapid UI iteration. We specifically used the latest v4 to leverage modern CSS features and reduce build configuration overhead.
 
 ## 4. Docker Deployment Strategy
 *   **Decision:** Single Container Deployment.
