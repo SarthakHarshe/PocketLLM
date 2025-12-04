@@ -1,4 +1,4 @@
-# Deliverable 2: Descriptive Architecture (Design Decisions)
+# Descriptive Architecture (Design Decisions and departures)
 
 This document outlines the design decisions and departures from the initial architectural plan made during the implementation of the Pocket LLM Portal.
 
@@ -22,5 +22,5 @@ This document outlines the design decisions and departures from the initial arch
     *   **Trade-off:** Tightly couples the deployment artifacts, but acceptable for a "Pocket" app.
 
 ## 5. Database Choice
-*   **Decision:** **Better-SQLite3** (In-process) over a separate SQL server.
+*   **Decision:** **Better-SQLite3** In-process over a separate SQL server.
 *   **Rationale:** To strictly adhere to the "Pocket" nature and resource constraints, we used `better-sqlite3`. This runs in the same process as the Node.js application, eliminating the latency and resource cost of a separate database server process (like PostgreSQL or MySQL), which aligns perfectly with the requirement for a lightweight, self-contained app.
