@@ -24,6 +24,66 @@ PocketLLM Portal is a lightweight web application that allows end users to inter
 
 Ensure **Docker Desktop** or **Docker Engine** is installed.
 
+#### Option 1: Pulling docker image from DockerHub and running the application locally
+
+1.  **Pull the Docker Image from DockerHub:**   
+    Open a terminal and run:
+    ```bash
+    docker pull pmayurusc19/csci-578_group-9_pocket-llm:latest_final
+    ```
+    This will:
+    *   Pull the latest and final docker image for our PocketLLM Application from DockerHub
+    *   Verify this by running the following command
+        ```bash
+        docker image list
+        ```
+        And verifying that the following image is visible in the list and note the image-id
+        ```bash
+        REPOSITORY                                TAG            IMAGE ID       CREATED        SIZE
+        pmayurusc19/csci-578_group-9_pocket-llm   latest_final   42e0fc85e806   8 days ago     5.01GB
+        ```
+2.  **Run the PocketLLM Application**   
+    Once the docker image is pulled from DockerHub, run the following command to start the application
+    ```bash
+    docker run -p 3001:3001 pmayurusc19/csci-578_group-9_pocket-llm:latest_final
+    ```
+    This will:
+    *   Start the container
+    *   Launch both frontend and backend
+    *   Download the model automatically if it is not yet present
+
+3.  **Access the Web Application:**  
+    Once the container is running, open your browser and navigate to:
+    ```
+    http://localhost:3001
+    ```
+    This is the entry point to PocketLLM portal.
+
+4.  **Stop the Application:**  
+    To fully stop the container, press `Ctrl+C` in the terminal where the above Docker container is running.  
+    
+    To fully remove the container (and image):  
+    *   Extract the container-id using the following command and locate the container running the above image
+        ```bash
+        docker ps -a
+        ```
+    *   Next stop the container using the container-id extracted above
+        ```bash
+        docker stop <container-id>
+        ```
+    
+    * Next, remove the container using
+        ```bash
+        docker rm <container-id>
+        ```
+    
+    * (Optional) Finally, to remove the image:
+        ```bash
+        docker rmi pmayurusc19/csci-578_group-9_pocket-llm:latest_final
+        ```
+
+#### Option 2: Building docker image locally and running the application
+
 1.  **Build and Run the Application:**   
     Open a terminal in the project root directory (where `docker-compose.yml` is located) and run:
     ```bash
